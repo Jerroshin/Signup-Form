@@ -43,7 +43,7 @@ class SignUp extends Component {
     e.preventDefault();
 
     this.setState({
-      successMessage: "Welcome",
+      successMessage: "yes",
       firstName: "",
       lastName: "",
       email: "",
