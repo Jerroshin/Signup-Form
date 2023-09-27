@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import "./form.scss";
 
 class SignUp extends Component {
   constructor() {
@@ -10,11 +12,8 @@ class SignUp extends Component {
       password: "",
       confirmPassword: "",
       contactNumber: "",
-      otp: "",
       errors: {},
       isFormValid: false,
-      showOTPField: false,
-      successMessage: "",
     };
   }
 
@@ -43,17 +42,14 @@ class SignUp extends Component {
     e.preventDefault();
 
     this.setState({
-      successMessage: "yes",
       firstName: "",
       lastName: "",
       email: "",
       password: "",
       confirmPassword: "",
       contactNumber: "",
-      otp: "",
       errors: {},
       isFormValid: false,
-      showOTPField: false,
     });
   };
 
@@ -71,121 +67,108 @@ class SignUp extends Component {
       confirmPassword,
       contactNumber,
       errors,
-      showOTPField,
-      isFormValid,
-      successMessage,
     } = this.state;
 
     return (
-      <div className="Form-Full">
-        {successMessage && <div className="success">{successMessage}</div>}
-        <h2>Registration Form</h2>
-        <form onSubmit={this.validateForm}>
-          <div>
-            <label htmlFor="firstName">First Name:</label>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              value={firstName}
-              onChange={this.handleChange}
-              required
-            />
-          </div>
+      <section className="main">
+        <Container>
+          <Row className="justify-content-center">
+            <Col xxl={4}>
+              <div className="Form-Full">
+                <h1>Registration Form</h1>
+                <form onSubmit={this.validateForm} className="Form-data">
+                  <div>
+                    <label htmlFor="firstName"></label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      placeholder="FirstName"
+                      value={firstName}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </div>
 
-          <div>
-            <label htmlFor="lastName">Last Name:</label>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              value={lastName}
-              onChange={this.handleChange}
-              required
-            />
-          </div>
+                  <div>
+                    <label htmlFor="lastName"></label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      placeholder="LastName"
+                      value={lastName}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </div>
 
-          <div>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={this.handleChange}
-              required
-            />
-          </div>
+                  <div>
+                    <label htmlFor="email"></label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="Email"
+                      value={email}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </div>
 
-          <div>
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              onChange={this.handleChange}
-              required
-            />
-          </div>
+                  <div>
+                    <label htmlFor="password"></label>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </div>
 
-          <div>
-            <label htmlFor="confirmPassword">Confirm Password:</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={confirmPassword}
-              onChange={this.handleChange}
-              required
-            />
-          </div>
+                  <div>
+                    <label htmlFor="confirmPassword"></label>
+                    <input
+                      type="password"
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="Confirm Password"
+                      value={confirmPassword}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </div>
 
-          <div>
-            <label htmlFor="contactNumber">Contact Number:</label>
-            <input
-              type="tel"
-              id="contactNumber"
-              name="contactNumber"
-              pattern="[0-9]{10}"
-              value={contactNumber}
-              onChange={this.handleChange}
-              required
-            />
-          </div>
+                  <div>
+                    <label htmlFor="contactNumber"></label>
+                    <input
+                      type="tel"
+                      id="contactNumber"
+                      name="contactNumber"
+                      placeholder="Contact Number"
+                      pattern="[0-9]{10}"
+                      value={contactNumber}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </div>
 
-          <div>
-            <button type="submit">Proceed</button>
-          </div>
+                  <div>
+                    <button type="submit">Submit</button>
+                  </div>
 
-          {errors.confirmPassword && (
-            <div className="error">{errors.confirmPassword}</div>
-          )}
-        </form>
-
-        {showOTPField && isFormValid && (
-          <div className="OTP-Field">
-            <h2>Enter OTP</h2>
-            <form onSubmit={this.handleOTPSubmit}>
-              <div>
-                <label htmlFor="otp">OTP:</label>
-                <input
-                  type="text"
-                  id="otp"
-                  name="otp"
-                  value={this.state.otp}
-                  onChange={this.handleOTPChange}
-                  pattern="[0-9]{4}"
-                  required
-                />
+                  {errors.confirmPassword && (
+                    <div className="error">{errors.confirmPassword}</div>
+                  )}
+                </form>
               </div>
-              <div>
-                <button type="submit">Submit OTP</button>
-              </div>
-            </form>
-          </div>
-        )}
-      </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
     );
   }
 }
