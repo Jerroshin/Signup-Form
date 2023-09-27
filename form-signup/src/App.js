@@ -1,6 +1,5 @@
-import "./App.css";
 import SignUp from "./Form/form";
-
+import "./App.css";
 function App() {
   return (
     <>
