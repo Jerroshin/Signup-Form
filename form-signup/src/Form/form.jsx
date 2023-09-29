@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "./form.scss";
-
+import Success from "./success";
 class SignUp extends Component {
   constructor() {
     super();
@@ -14,6 +14,7 @@ class SignUp extends Component {
       contactNumber: "",
       errors: {},
       isFormValid: false,
+      successMessage: "",
     };
   }
 
@@ -27,30 +28,14 @@ class SignUp extends Component {
     }
 
     if (Object.keys(errors).length === 0) {
-      this.setState({ showOTPField: true, errors: {}, isFormValid: true });
+      this.setState({ errors: {}, isFormValid: true }, this.handleSubmit);
     } else {
-      this.setState({ errors, showOTPField: false, isFormValid: false });
+      this.setState({ errors, isFormValid: false });
     }
   };
 
-  handleOTPChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
-
-  handleOTPSubmit = (e) => {
-    e.preventDefault();
-
-    this.setState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      contactNumber: "",
-      errors: {},
-      isFormValid: false,
-    });
+  handleSubmit = () => {
+    this.setState({ successMessage: <Success /> });
   };
 
   handleChange = (e) => {
@@ -67,13 +52,14 @@ class SignUp extends Component {
       confirmPassword,
       contactNumber,
       errors,
+      successMessage,
     } = this.state;
 
     return (
       <section className="main">
         <Container>
           <Row className="justify-content-center">
-            <Col xxl={4}>
+            <Col md={5}>
               <div className="Form-Full">
                 <h1>Registration Form</h1>
                 <form onSubmit={this.validateForm} className="Form-data">
@@ -83,7 +69,7 @@ class SignUp extends Component {
                       type="text"
                       id="firstName"
                       name="firstName"
-                      placeholder="FirstName"
+                      placeholder="First Name"
                       value={firstName}
                       onChange={this.handleChange}
                       required
@@ -96,7 +82,7 @@ class SignUp extends Component {
                       type="text"
                       id="lastName"
                       name="lastName"
-                      placeholder="LastName"
+                      placeholder="Last Name"
                       value={lastName}
                       onChange={this.handleChange}
                       required
@@ -162,6 +148,9 @@ class SignUp extends Component {
 
                   {errors.confirmPassword && (
                     <div className="error">{errors.confirmPassword}</div>
+                  )}
+                  {successMessage && (
+                    <div className="success">{successMessage}</div>
                   )}
                 </form>
               </div>
