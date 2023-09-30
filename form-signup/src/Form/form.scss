@@ -6,7 +6,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 770px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -56,7 +56,8 @@
   .error {
     color: #fff;
   }
-  .success {
+  .success-center {
     color: #fff;
+    text-align: center;
   }
 }

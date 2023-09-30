@@ -30,27 +30,32 @@ class SignUp extends Component {
     }
 
     if (Object.keys(errors).length === 0) {
-      this.setState({ errors: {}, isFormValid: true }, this.handleSubmit);
+      // Form is valid, call handleSubmit
+      this.handleSubmit();
     } else {
-      this.setState({ errors, isFormValid: false });
+      this.setState({ errors, isFormValid: false, successMessage: "" });
     }
   };
 
   handleSubmit = () => {
-    this.setState({ successMessage: <Success /> });
+    // Set the success message
+    this.setState({ successMessage: "Form submitted successfully" });
 
+    // Clear the form data
+    this.setState({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      contactNumber: "",
+      errors: {},
+      isFormValid: false,
+    });
+
+    // Optionally, reset the success message after a few seconds
     setTimeout(() => {
-      this.setState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        contactNumber: "",
-        errors: {},
-        isFormValid: false,
-        successMessage: "",
-      });
+      this.setState({ successMessage: "" });
     }, 5000);
   };
 
@@ -75,101 +80,105 @@ class SignUp extends Component {
       <section className="main">
         <Container>
           <Row className="justify-content-center">
-            <Col md={5}>
-              <div className="Form-Full">
-                <h1>Registration Form</h1>
-                <form onSubmit={this.validateForm} className="Form-data">
-                  <div>
-                    <label htmlFor="firstName"></label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      placeholder="First Name"
-                      value={firstName}
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </div>
+            <Col md={8} lg={6}>
+              {successMessage ? (
+                <div className="success-center">
+                  <Success message={successMessage} />
+                </div>
+              ) : (
+                <>
+                  <div className="Form-Full">
+                    <h1>Registration Form</h1>
+                    <form onSubmit={this.validateForm} className="Form-data">
+                      <div>
+                        <label htmlFor="firstName"></label>
+                        <input
+                          type="text"
+                          id="firstName"
+                          name="firstName"
+                          placeholder="First Name"
+                          value={firstName}
+                          onChange={this.handleChange}
+                          required
+                        />
+                      </div>
 
-                  <div>
-                    <label htmlFor="lastName"></label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      placeholder="Last Name"
-                      value={lastName}
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </div>
+                      <div>
+                        <label htmlFor="lastName"></label>
+                        <input
+                          type="text"
+                          id="lastName"
+                          name="lastName"
+                          placeholder="Last Name"
+                          value={lastName}
+                          onChange={this.handleChange}
+                          required
+                        />
+                      </div>
 
-                  <div>
-                    <label htmlFor="email"></label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      placeholder="Email"
-                      value={email}
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </div>
+                      <div>
+                        <label htmlFor="email"></label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          placeholder="Email"
+                          value={email}
+                          onChange={this.handleChange}
+                          required
+                        />
+                      </div>
 
-                  <div>
-                    <label htmlFor="password"></label>
-                    <input
-                      type="password"
-                      id="password"
-                      name="password"
-                      placeholder="Password"
-                      value={password}
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </div>
+                      <div>
+                        <label htmlFor="password"></label>
+                        <input
+                          type="password"
+                          id="password"
+                          name="password"
+                          placeholder="Password"
+                          value={password}
+                          onChange={this.handleChange}
+                          required
+                        />
+                      </div>
 
-                  <div>
-                    <label htmlFor="confirmPassword"></label>
-                    <input
-                      type="password"
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      placeholder="Confirm Password"
-                      value={confirmPassword}
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </div>
+                      <div>
+                        <label htmlFor="confirmPassword"></label>
+                        <input
+                          type="password"
+                          id="confirmPassword"
+                          name="confirmPassword"
+                          placeholder="Confirm Password"
+                          value={confirmPassword}
+                          onChange={this.handleChange}
+                          required
+                        />
+                      </div>
 
-                  <div>
-                    <label htmlFor="contactNumber"></label>
-                    <input
-                      type="tel"
-                      id="contactNumber"
-                      name="contactNumber"
-                      placeholder="Contact Number"
-                      pattern="[0-9]{10}"
-                      value={contactNumber}
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </div>
+                      <div>
+                        <label htmlFor="contactNumber"></label>
+                        <input
+                          type="tel"
+                          id="contactNumber"
+                          name="contactNumber"
+                          placeholder="Contact Number"
+                          pattern="[0-9]{10}"
+                          value={contactNumber}
+                          onChange={this.handleChange}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <button type="submit">Submit</button>
+                      </div>
 
-                  <div>
-                    <button type="submit">Submit</button>
+                      {errors.confirmPassword && (
+                        <div className="error">{errors.confirmPassword}</div>
+                      )}
+                    </form>
                   </div>
-
-                  {errors.confirmPassword && (
-                    <div className="error">{errors.confirmPassword}</div>
-                  )}
-                  {successMessage && (
-                    <div className="success">{successMessage}</div>
-                  )}
-                </form>
-              </div>
+                </>
+              )}
             </Col>
           </Row>
         </Container>

@@ -1,6 +1,7 @@
 import React from "react";
 import fail from "./lotti/animation_ln5mcx5p.json";
 import { Player } from "@lottiefiles/react-lottie-player";
+import "./form.scss";
 function Fail() {
   return (
     <section>
