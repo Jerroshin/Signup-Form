@@ -22,26 +22,28 @@ class SignUp extends Component {
 
   validateForm = (e) => {
     e.preventDefault();
-    const { password, confirmPassword } = this.state;
+    const { password, confirmPassword, ...formData } = this.state;
+    formData.password = password;
     const errors = {};
 
     if (password !== confirmPassword) {
       errors.confirmPassword = <Fail />;
+      formData.errors = errors;
     }
 
     if (Object.keys(errors).length === 0) {
-      // Form is valid, call handleSubmit
+      console.log("Form is valid, submitting...");
+      console.log("Form Data:", formData);
       this.handleSubmit();
     } else {
+      console.log("Form has errors:", errors);
       this.setState({ errors, isFormValid: false, successMessage: "" });
     }
   };
 
   handleSubmit = () => {
-    // Set the success message
+    console.log("Form submitted successfully");
     this.setState({ successMessage: "Form submitted successfully" });
-
-    // Clear the form data
     this.setState({
       firstName: "",
       lastName: "",
@@ -53,7 +55,6 @@ class SignUp extends Component {
       isFormValid: false,
     });
 
-    // Optionally, reset the success message after a few seconds
     setTimeout(() => {
       this.setState({ successMessage: "" });
     }, 5000);
@@ -126,6 +127,7 @@ class SignUp extends Component {
                           value={email}
                           onChange={this.handleChange}
                           required
+                          autoComplete="on"
                         />
                       </div>
 
