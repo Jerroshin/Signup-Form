@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "./form.scss";
 import Success from "./success";
+import Fail from "./failure";
+
 class SignUp extends Component {
   constructor() {
     super();
@@ -24,7 +26,7 @@ class SignUp extends Component {
     const errors = {};
 
     if (password !== confirmPassword) {
-      errors.confirmPassword = "Passwords do not match";
+      errors.confirmPassword = <Fail />;
     }
 
     if (Object.keys(errors).length === 0) {
@@ -36,6 +38,20 @@ class SignUp extends Component {
 
   handleSubmit = () => {
     this.setState({ successMessage: <Success /> });
+
+    setTimeout(() => {
+      this.setState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        contactNumber: "",
+        errors: {},
+        isFormValid: false,
+        successMessage: "",
+      });
+    }, 5000);
   };
 
   handleChange = (e) => {
