@@ -1,6 +1,7 @@
 import React from "react";
 import anmi from "./lotti/successfully-done.json";
 import { Player } from "@lottiefiles/react-lottie-player";
+import "./form.scss";
 function Success() {
   return (
     <section>
